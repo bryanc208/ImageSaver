@@ -2,7 +2,17 @@
     max-width: 450px;
 }
 
-#imgcontainer div{
+#imgurcontainer div{
+    padding: 1em;
+    margin: 1em auto;
+    width: 500px;
+    background-color: #333;
+    color: white;
+    border-radius: 1em;
+    text-align: center;
+}
+
+#giphycontainer div{
     padding: 1em;
     margin: 1em auto;
     width: 500px;
@@ -22,10 +32,19 @@
     background-color: gray;
     color: white;
     overflow-x: scroll;
-    visibility: hidden;
 }
 
 #count img{
     height: 40px;
 }
 
+#imgurHeading {
+    position: absolute;
+    padding-left: 50px;
+}
+
+#giphyHeading {
+    position: static;
+    text-align: right;
+    padding-right: 50px;
+}
