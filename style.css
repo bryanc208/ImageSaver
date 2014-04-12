@@ -1,11 +1,11 @@
 .waffleImage{
-    max-width: 450px;
+    max-width: 300px;
 }
 
 #imgurcontainer div{
     padding: 1em;
     margin: 1em auto;
-    width: 500px;
+    width: auto;
     background-color: #333;
     color: white;
     border-radius: 1em;
@@ -15,12 +15,28 @@
 #giphycontainer div{
     padding: 1em;
     margin: 1em auto;
-    width: 500px;
+    width: auto;
     background-color: #333;
     color: white;
     border-radius: 1em;
     text-align: center;
 }
+
+#subredditcontainer div{
+    padding: 1em;
+    margin: 1em auto;
+    width: auto;
+    background-color: #333;
+    color: white;
+    border-radius: 1em;
+    text-align: center;
+}
+
+#subredditcontainer a{
+    font-size: 20pt;
+    text-align: center;
+    padding-left: 130px;
+}   
 
 #count{
     position: fixed;
@@ -39,12 +55,15 @@
 }
 
 #imgurHeading {
-    position: absolute;
-    padding-left: 50px;
+    position: static;
 }
 
 #giphyHeading {
     position: static;
-    text-align: right;
-    padding-right: 50px;
+    text-align: right; 
+}
+
+#subredditHeading{
+    position: static;
+    text-align: center;
 }

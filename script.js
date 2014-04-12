@@ -4,6 +4,8 @@ var limit = 50;
 
 var key = "savedImageURL";
 
+var subreddit = "";
+
 
 $(function(){
     //loading local storage-------------------------------------------------------------------
@@ -22,7 +24,8 @@ $(function(){
         url: 'https://api.imgur.com/3/gallery/hot/viral/0.json',
         type: 'GET',
         headers: { "Authorization": "Client-ID cb1bb6f9220bbe3" },
-        success: function (data) {  
+        success: function (data) {
+            console.log(data);
             for(i in data.data){
                 var src = data.data[i].link;
                 if(data.data[i].is_album === false){
@@ -93,7 +96,76 @@ $(function(){
         pic.parent().css("visibility", "visible").css("position", "static");
         localStorage[key] = JSON.stringify(savedPictures);
     });
+    
+    //Load subreddit function----------------------------------------------------------------
+    function loadSubreddit(){
+            if($('#subredditcontainer').children().length > 0) {
+               $('#subredditcontainer').children().remove();
+            }
+                $.ajax({
+                url: 'https://api.imgur.com/3/gallery/r/' + subreddit + "/top",
+                type: 'GET',
+                headers: { "Authorization": "Client-ID cb1bb6f9220bbe3" },
+                success: function (data) {
+                    console.log(data);
+                    for(i in data.data){
+                        var src = data.data[i].link;
+                            var container =  $("<div>")
+                                .html("<p>"+data.data[i].title+"</p>")
+                                .appendTo($("#subredditcontainer"));
+                            $("<img>")
+                                .addClass("waffleImage")
+                                .attr("src", src)
+                                .appendTo(container);
+                        if($.inArray(src, savedPictures) !== (-1)){
+                            var pic = $('.row img[src="'+src+'"]');
+                            pic.parent().css("visibility", "hidden").css("position", "absolute");
+                        }
+                    }    
+                },
+                error: function (response) {
+                    alert("Invalid subreddit!");
+                }
+            });
+            $("#subredditcontainer").append($("<h1 id=subredditHeading>").html("r/" + subreddit));        
+    };
+    //Subreddit-----------------------------------------------------------------------
+    $('#subreddit').keyup(function(e){
+        if(e.keyCode === 13){
+            subreddit = $("#subreddit").val();
+            loadSubreddit();
+       }
 
+    });
+    //Suggestion click-----------------------------------------------------------------------------
+    $("#subredditcontainer a").click(function(){
+        var str = $(this).html();
+        subreddit = str.substring(2,str.length);
+        loadSubreddit();
+    });
+    
+    //keyboard scrolling---------------------------------------------------------------------
+
+//    $(document).keyup(function(e){
+//        if(e.keyCode === 74 || e.keyCode === 75){
+//            var $images = $("#imgurcontainer").find("div");
+//            console.log($images)
+//            var $imScrollPositions = new Array();
+//            $images.each(function(i){
+//                $imScrollPositions[i] = Math.round($(this).offset().top - $("#imgurcontainer").offset().top) - 10;
+//            });
+//
+//            $images.eq(0).addClass('active');
+//
+//            var last = $images.parent().find('img.active').removeClass('active').index();
+//            var next;
+//
+//            next = last + 1
+//            $("#imgurcontainer").scrollTo($imScrollPositions[next]);
+//        }
+//    });
+    
+    
     /*
     imgurdata = ['sdf','sdf'];
     for(var img in imgurdata){

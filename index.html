@@ -11,6 +11,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>    
     <script src="script.js"></script>
+    <script src="jquery.scrollTo.js"></script>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
@@ -66,17 +67,26 @@
         <h1>Waffles</h1>
         <p>Waffles shows you trending images from all over the internet and let you favorite them. </p>
       </div>
-    
+        Subreddit: <input type="text" id="subreddit">
       <div class="row">
-          <h1 id="imgurHeading">imgur</h1> <h1 id="giphyHeading">giphy</h1>
-        <div id="imgurcontainer" class="col-md-6">
-          
+
+        <div id="imgurcontainer" class="col-md-4">
+            <h1 id="imgurHeading">imgur</h1>
         </div>
-        <div id="giphycontainer" class="col-md-6">
-          
+        <div id="subredditcontainer" class="col-md-4">
+            <h1 id=subredditHeading>/r/subreddit</h1>
+            <a name="funny">r/funny</a>
+            <a name="foodporn">r/foodporn</a>
+            <a name="pics">r/pics</a>
+            <a name="all">r/all</a>
+            <a name="gifs">r/gifs</a>
         </div>
-          
+        <div id="giphycontainer" class="col-md-4">
+            <h1 id="giphyHeading">giphy</h1> 
+        </div>  
       </div>
+
+
         
       <div id="count">
       
