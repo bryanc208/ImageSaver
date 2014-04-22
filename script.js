@@ -9,9 +9,9 @@ var subreddit = "";
 
 $(function(){
     //loading local storage-------------------------------------------------------------------
-    savedPictures = JSON.parse(localStorage[key]);
+    //savedPictures = JSON.parse(localStorage[key]);
     if (savedPictures === null) savedPictures = [];
-    console.log(JSON.parse(localStorage[key]));
+   // console.log(JSON.parse(localStorage[key]));
     $("#count").html(savedPictures.length);  
     for(i in savedPictures){
     $("#count").append($("<img>")
