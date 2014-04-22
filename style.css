@@ -48,6 +48,7 @@
     background-color: gray;
     color: white;
     overflow-x: scroll;
+    visibility: hidden;
 }
 
 #count img{
