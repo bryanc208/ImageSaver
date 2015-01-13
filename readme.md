@@ -1,6 +1,6 @@
 #ImageSaver
 
-ImageSaver is a webapp that loads popular images from various sources throughout the web and lets the user favorite them using a Facebook account to save their selections. It utilizes Facebook APIs and Pulse to handle API calls. 
+ImageSaver is a webapp that loads popular images from various sources throughout the web and lets the user favorite them using a Facebook account to save their selections. It utilizes Facebook APIs and Parse to handle API calls. 
 
 ```
 APIs used: 
