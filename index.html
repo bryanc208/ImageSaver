@@ -7,20 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Waffles</title>
+    <title>ImageSaver</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>    
-    <script src="script.js"></script>
-    <script src="jquery.scrollTo.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <!--<script src="jquery-scrollTo.min.js"></script>-->
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+      
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
   </head>
 
   <body>
-
+   
     <div class="container">
 
       <!-- Static navbar -->
@@ -33,7 +34,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Waffles</a>
+            <a class="navbar-brand" href="#">ImageSaver</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -64,17 +65,18 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Waffles</h1>
-        <p>Waffles shows you trending images from all over the internet and let you favorite them. </p>
+        <h1>ImageSaver</h1>
+        <p>Double click to "favorite" an image. </p>
       </div>
-        Subreddit: <input type="text" id="subreddit">
+        Subreddit: <input type="text" id="subreddit">  <div id="fb-root"></div>
+        <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
       <div class="row">
 
         <div id="imgurcontainer" class="col-md-4">
             <h1 id="imgurHeading">imgur</h1>
         </div>
         <div id="subredditcontainer" class="col-md-4">
-            <h1 id=subredditHeading>/r/subreddit</h1>
+            <h1 id="subredditHeading">/r/subreddit</h1>
             <a name="funny">r/funny</a>
             <a name="foodporn">r/foodporn</a>
             <a name="pics">r/pics</a>
