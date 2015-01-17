@@ -8,18 +8,14 @@ var subreddit = "";
         
 $(function(){
     Parse.initialize("4lJf5ZDHDFHWzV7DH7QE9CZ88nOGz4Hmfme7lnuX", "UlxdMHxQievG6HPElT6DMIgWAk9HNsIlLfsrZOlJ");    
-    
-    var currentUser = Parse.User.current();
-    //loadSavedPics();
-    
-    // FB SDK    
-    (function(d){
-       var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement('script'); js.id = id; js.async = true;
-       js.src = "//connect.facebook.net/en_US/all.js";
-       ref.parentNode.insertBefore(js, ref);
-      }(document));
+       	  
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
     
     window.fbAsyncInit = function() {
         console.log("this works");
@@ -27,67 +23,29 @@ $(function(){
             appId      : '567834676648388', // Facebook App ID
             status     : true, // check login status
             cookie     : true, // enable cookies to allow Parse to access the session
-            xfbml      : true  // parse XFBML
+			xfbml      : true,  // initialize Facebook social plugins on the page
+			version    : 'v2.2' // point to the latest Facebook Graph API version
         });
         console.log("this also works");
 		
-		FB.getLoginStatus(function(response) {
-		  if (response.status === 'connected') {
-			// the user is logged in and has authenticated your
-			// app, and response.authResponse supplies
-			// the user's ID, a valid access token, a signed
-			// request, and the time the access token 
-			// and signed request each expire
-			var uid = response.authResponse.userID;
-			var accessToken = response.authResponse.accessToken;
-			console.log("New user");
-			loadSavedPics();
-		  } else if (response.status === 'not_authorized') {
-			// the user is logged in to Facebook, 
-			// but has not authenticated your app
-			Parse.FacebookUtils.logIn(null, {
-			  success: function(user) {
-				if (!user.existed()) {
-				  console.log("User signed up and logged in through Facebook!");
-				} else {
-				  console.log("User logged in through Facebook!");
+	Parse.FacebookUtils.logIn(null, {
+		success: function(user) {
+			if (!user.existed()) {
+			console.log("User signed up and logged in through Facebook!");
+			} else {
+				console.log("User logged in through Facebook!");
 				}
-				 loadSavedPics();
-			  },
-			  error: function(user, error) {
-				console.log(error);
-			  }
-			});
-		  } else {
-			Parse.FacebookUtils.logIn(null, {
-			  success: function(user) {
-				if (!user.existed()) {
-				  console.log("User signed up and logged in through Facebook!");
-				} else {
-				  console.log("User logged in through Facebook!");
-				}
-				 loadSavedPics();
-			  },
-			  error: function(user, error) {
-				console.log(error);
-			  }
-			});
-		  }
-		 });
-                   
+		},
+		error: function(user, error) {
+			console.log("User cancelled the Facebook login or did not fully authorize.");
+		}
+		});
+ 
     };
 
-//    //loading local storage-------------------------------------------------------------------
-//    //savedPictures = JSON.parse(localStorage[key]);
-//    if (savedPictures === null) savedPictures = [];
-//   // console.log(JSON.parse(localStorage[key]));
-//    $("#count").html(savedPictures.length);  
-//    for(i in savedPictures){
-//    $("#count").append($("<img>")
-//                       .attr("src",savedPictures[i])
-//                       .addClass("savedImage"));
-//    } 
-//    
+    var currentUser = Parse.User.current();
+	loadSavedPics();
+	
     //API call to imgur-----------------------------------------------------------------------
     $.ajax({
         url: 'https://api.imgur.com/3/gallery/hot/viral/0.json',
@@ -217,34 +175,9 @@ $(function(){
         subreddit = str.substring(2,str.length);
         loadSubreddit();
     });
-    
-    //keyboard scrolling---------------------------------------------------------------------
 
-    $(document).keyup(function(e){
-        if(e.keyCode === 74 || e.keyCode === 75){
-            var $images = $("#imgurcontainer").find("div");
-            console.log($images)
-            var $imScrollPositions = new Array();
-            $images.each(function(i){
-                $imScrollPositions[i] = Math.round($(this).offset().top - $("#imgurcontainer").offset().top) - 10;
-            });
-
-            $images.eq(0).addClass('active');
-
-            var last = $images.parent().find('img.active').removeClass('active').index();
-            var next;
-
-            next = last + 1
-            $("#imgurcontainer").scrollTo($imScrollPositions[next]);
-        }
-    });
-    
-    
     //Load saved stuff
     function loadSavedPics(){
-        var currentUser = Parse.User.current();
-        console.log(currentUser);
-
         savedPictures = currentUser.attributes.savedPics;
         if(savedPictures === undefined){
             savedPictures = [];
@@ -259,23 +192,4 @@ $(function(){
         console.log(currentUser);
         console.log(savedPictures);
     };    
-
-    
-    /*
-    imgurdata = ['sdf','sdf'];
-    for(var img in imgurdata){
-        $("<img>").attr("src", url ).addClass("favoritebutton").data("url", img).appendTo($("#waffleimagecontainer");
-    }
-    
-    $(document).on("click", ".favoritbutton", function(){
-        var urlToFavorite = $(this).data("url");
-        doFavoritething(urlToFavorite);
-            
-    });
-    
-    $(".waffleimg").click(function(){
-           
-    });
-    */
-
 });
